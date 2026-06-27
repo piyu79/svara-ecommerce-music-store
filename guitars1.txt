@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<head>
+<title>Guitars - SVARA</title>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'DM Sans', Arial, sans-serif;
+  background: #F7F5F2;
+  color: #333;
+  line-height: 1.6;
+}
+
+.header {
+  background-color: #121212;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+.nav {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+.nav a {
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: color 0.2s, background 0.2s;
+  padding: 0.42rem 0.78rem;
+  border-radius: 999px;
+}
+.nav a:hover,
+.nav a.active {
+  color: white;
+  background: rgba(255,255,255,0.14);
+}
+.mobile-menu {
+  display: none;
+}
+
+.content-wrapper {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+.filters {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 14px;
+  border: 2px solid #C8C0B5;
+  box-shadow: 0 6px 22px rgba(0,0,0,0.16), 0 2px 6px rgba(0,0,0,0.09);
+  height: fit-content;
+  position: sticky;
+  top: 80px;
+}
+.filters h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  color: #121212;
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+.filter-group {
+  margin-bottom: 1.2rem;
+}
+.filter-group label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.filter-group select,
+.filter-group input {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  font-family: 'DM Sans', Arial, sans-serif;
+  font-size: 0.9rem;
+  color: #333;
+  transition: border-color 0.2s;
+}
+.filter-group select:focus,
+.filter-group input:focus {
+  outline: none;
+  border-color: #121212;
+}
+
+.products-section {
+  background: transparent;
+}
+.products-section h1 {
+  font-family: 'Playfair Display', serif;
+  text-align: center;
+  color: #121212;
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.products-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.product-count {
+  color: #5f6b76;
+  font-weight: 600;
+}
+
+.cart-link-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7rem 1.2rem;
+  border-radius: 999px;
+  background: #121212;
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.cart-link-button:hover {
+  background: #3A3A3A;
+  transform: translateY(-1px);
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.8rem;
+}
+
+.product-card {
+  background: white;
+  border-radius: 14px;
+  border: 2px solid #C8C0B5;
+  box-shadow: 0 6px 22px rgba(0,0,0,0.16), 0 2px 6px rgba(0,0,0,0.09);
+  text-align: center;
+  padding: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 460px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  overflow: hidden;
+}
+.product-card:hover {
+  transform: translateY(-5px);
+  border-color: #96281B;
+box-shadow: 0 12px 32px rgba(0,0,0,0.18), 0 3px 8px rgba(0,0,0,0.10);
+}
+
+.product-image-wrapper {
+  width: 100%;
+  height: 210px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #f8f8f8;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.product-image-actual {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.35s ease;
+}
+.product-card:hover .product-image-actual {
+  transform: scale(1.07);
+}
+
+.product-card h3 {
+  font-size: 0.98rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  color: #121212;
+}
+.audio-controls {
+  background: #f8f9fa;
+  border-radius: 5px;
+  padding: 0.5rem;
+  width: 100%;
+  margin-bottom: 0.8rem;
+  color: #121212;
+  font-weight: bold;
+}
+.price {
+  font-size: 1.1rem;
+  color: #96281B;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+.description {
+  flex-grow: 1;
+  color: #666;
+  font-size: 0.85rem;
+  margin-bottom: 0.8rem;
+}
+
+.buy-button {
+  background: #1A1A1A;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.65rem 1rem;
+  width: 100%;
+  cursor: pointer;
+  font-family: 'DM Sans', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+.buy-button:hover {
+  background: #3A3A3A;
+  transform: translateY(-1px);
+}
+.buy-button:active {
+  transform: translateY(0);
+}
+
+.footer {
+  background: #121212;
+  color: white;
+  text-align: center;
+  padding: 2rem 1rem;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+}
+
+/* Toast notification */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: #1A1A1A;
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-weight: bold;
+  font-size: 1rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 9999;
+  pointer-events: none;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.toast-icon {
+  font-size: 1.4rem;
+}
+.cart-count {
+  background: #96281B;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 7px;
+  font-size: 0.8rem;
+  margin-left: 0.3rem;
+}
+
+@media (max-width: 1024px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 768px) {
+  .content-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .nav {
+    display: none;
+  }
+  .mobile-menu {
+    display: block;
+    background: none;
+    border: 2px solid white;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+  }
+  .filters {
+    position: static;
+  }
+}
+
+/* ── PROFILE ── */
+.profile-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.profile-btn {
+  background: #96281B;
+  border: 2px solid rgba(255,255,255,0.7);
+  color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+.profile-btn:hover { background: #B03020; }
+.profile-name {
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.profile-dropdown {
+  display: none;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.18);
+  min-width: 170px;
+  z-index: 999;
+  overflow: hidden;
+}
+.profile-dropdown.open { display: block; }
+.profile-dropdown a {
+  display: block;
+  padding: 0.7rem 1.2rem;
+  color: #121212;
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 600;
+  transition: background 0.15s;
+  border-bottom: 1px solid #f0f0f0;
+}
+.profile-dropdown a:hover { background: #F7F5F2; }
+.profile-dropdown .logout-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.7rem 1.2rem;
+  color: #96281B;
+  background: none;
+  border: none;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.profile-dropdown .logout-btn:hover { background: #fff0ef; }
+
+</style>
+</head>
+ 
+<body>
+ 
+<header class="header">
+  <div class="logo">SVAR<span style="color:#96281B;">A</span> </div>
+  <nav class="nav">    
+    <a href="home1.html">Home</a>
+    <a href="guitars1.html" class="active" aria-current="page">Guitars</a>
+    <a href="pianos1.html">Pianos</a>
+    <a href="drums1.html">Drums</a>
+    <a href="violins1.html">Violins</a>
+    <a href="tutorials1.html">Tutorials</a>
+    <a href="contact1.html">Contact</a>
+    <a href="about us1.html">About Us</a>
+  </nav>
+  <button class="mobile-menu">☰ Menu</button>
+  <div class="profile-wrapper">
+    <button class="profile-btn" id="profileBtn" onclick="toggleProfile()">&#128100;</button>
+    <span class="profile-name" id="profileName"></span>
+    <div class="profile-dropdown" id="profileDropdown">
+      <a href="update.html">&#9999;&#65039; Update Info</a>
+      <a href="de-register.html">&#10060; De-register</a>
+      <button class="logout-btn" onclick="logOut()">&#128682; Log Out</button>
+    </div>
+  </div>
+</header>
+ 
+<div class="content-wrapper">
+ 
+  <aside class="filters">
+    <h3>Filter Guitars 🎸</h3>
+    <div class="filter-group">
+      <label for="guitar-price">Price Range</label>
+      <select id="guitar-price">
+        <option>All Prices</option>
+        <option>Under ₹1000</option>
+        <option>₹1000 - ₹2500</option>
+        <option>₹2500+</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label for="guitar-search">Search</label>
+      <input type="text" id="guitar-search" placeholder="Search guitar name or type">
+    </div>
+    <div class="filter-group">
+      <label for="guitar-brand">Brand</label>
+      <select id="guitar-brand">
+        <option>All Brands</option>
+        <option>Fender</option>
+        <option>Gibson</option>
+        <option>Taylor</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label for="guitar-sort">Sort By</label>
+      <select id="guitar-sort">
+        <option>Default</option>
+        <option>Price: Low to High</option>
+        <option>Price: High to Low</option>
+        <option>Name: A to Z</option>
+      </select>
+    </div>
+    <button class="buy-button" id="applyFilters" type="button">Apply Filters</button>
+  </aside>
+ 
+  <main class="products-section">
+    <h1>Guitar Collection</h1>
+    <div class="products-topbar">
+      <p class="product-count" id="productCount">Showing 14 guitars</p>
+      <a href="home1.html" class="cart-link-button">Go to Cart</a>
+    </div>
+    <p id="noResultsMsg" style="display:none; text-align:center; color:#777; padding:2rem; background:white; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.1);">No guitars match your filters. Try widening your search.</p>
+    <div class="products-grid" id="productsGrid">
+ 
+      <div class="product-card" data-brand="Taylor" data-price="2299">
+        <div class="product-image-wrapper"><img src="classicacousticguitar.jpg" alt="Classic Acoustic Guitar" class="product-image-actual"></div>
+        <h3>Classic Acoustic Guitar</h3>
+        <p class="description">Perfect for beginners and professionals</p>
+        <p class="price">Buy Now - ₹2299</p>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+ 
+      <div class="product-card" data-brand="Gibson" data-price="599">
+        <div class="product-image-wrapper"><img src="electricguitarpro.jpg" alt="Electric Guitar Pro" class="product-image-actual"></div>
+        <h3>Electric Guitar Pro</h3>
+        <p class="description">Professional grade with classic body shape</p>
+        <p class="price">Buy Now - ₹599</p>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+ 
+      <div class="product-card" data-brand="Taylor" data-price="899">
+        <div class="product-image-wrapper"><img src="taylorseriesguitar.jpg" alt="Taylor Series Guitar" class="product-image-actual"></div>
+        <h3>Taylor Series Guitar</h3>
+        <p class="description">Rich sound and smooth finish for experts</p>
+        <p class="price">Buy Now - ₹899</p>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+    
+      <div class="product-card" data-brand="Fender" data-price="1250">
+        <div class="product-image-wrapper"><img src="fenderstratocastersunburst.jpg" alt="Fender Stratocaster" class="product-image-actual"></div>
+        <h3>Fender Stratocaster (Sunburst)</h3>
+        <p class="description">Iconic electric guitar, a must-have for rock and blues.</p>
+        <p class="price">Buy Now - ₹1250</p>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+      
+      <div class="product-card" data-brand="Gibson" data-price="2499">
+        <div class="product-image-wrapper"><img src="gibsonlespaulstandard.jpg" alt="Gibson Les Paul Standard" class="product-image-actual"></div>
+        <h3>Gibson Les Paul Standard</h3>
+        <p class="description">Fat tone and supreme sustain, perfect for hard rock.</p>
+        <p class="price">Buy Now - ₹2499</p>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+      
+      <div class="product-card" data-brand="Taylor" data-price="2149">
+        <div class="product-image-wrapper"><img src="beginnerclassicalguitar.jpg" alt="Beginner Classical Guitar" class="product-image-actual"></div>
+        <h3>Beginner Classical Guitar</h3>
+        <p class="description">Nylon strings make it easy on the fingers for new players.</p>
+        <p class="price">Buy Now - ₹2149</p>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+ 
+      <div class="product-card" data-brand="Taylor" data-price="1349">
+        <div class="product-image-wrapper"><img src="compacttravelacoustic.jpg" alt="Compact Travel Acoustic" class="product-image-actual"></div>
+        <h3>Compact Travel Acoustic</h3>
+        <p class="description">Small size, big sound. Ideal for on-the-go musicians.</p>
+        <p class="price">Buy Now - ₹1349</p>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+ 
+      <div class="product-card" data-brand="Gibson" data-price="2999">
+        <div class="product-image-wrapper"><img src="hollowbodyjazzguitar.jpg" alt="Hollow Body Jazz Guitar" class="product-image-actual"></div>
+        <h3>Hollow Body Jazz Guitar</h3>
+        <p class="description">Warm, rich tones perfect for jazz and blues.</p>
+        <p class="price">Buy Now - ₹2999</p>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+ 
+      <div class="product-card" data-brand="Taylor" data-price="1749">
+        <div class="product-image-wrapper"><img src="12-stringacousticguitar.jpg" alt="12-String Acoustic Guitar" class="product-image-actual"></div>
+        <h3>12-String Acoustic Guitar</h3>
+        <p class="description">Produces a lush, full, and shimmering sound. Great for folk and rock.</p>
+        <p class="price">Buy Now - ₹1749</p>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+ 
+      <div class="product-card" data-brand="Gibson" data-price="1099">
+        <div class="product-image-wrapper"><img src="blackflyingvelectric.jpg" alt="Black Flying V Electric" class="product-image-actual"></div>
+        <h3>Black Flying V Electric</h3>
+        <p class="description">Aggressive style and powerful pickups for metal and hard rock.</p>
+        <p class="price">Buy Now - ₹1099</p>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+ 
+      <div class="product-card" data-brand="Fender" data-price="999">
+        <div class="product-image-wrapper"><img src="children'ssizeguitar.jpg" alt="Children's 3/4 Size Guitar" class="product-image-actual"></div>
+        <h3>Children's 3/4 Size Guitar</h3>
+        <p class="description">Perfectly sized for young aspiring musicians and easy to play.</p>
+        <p class="price">Buy Now - ₹999</p>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+      
+      <div class="product-card" data-brand="Fender" data-price="2950">
+        <div class="product-image-wrapper"><img src="redfendertelecaster.jpg" alt="Red Fender Telecaster" class="product-image-actual"></div>
+        <h3>Red Fender Telecaster</h3>
+        <p class="description">Bright, punchy sound known for country, punk, and rock.</p>
+        <p class="price">Buy Now - ₹2950</p>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+ 
+      <div class="product-card" data-brand="Fender" data-price="4450">
+        <div class="product-image-wrapper"><img src="4-stringbassguitar.jpg" alt="4-String Bass Guitar" class="product-image-actual"></div>
+        <h3>4-String Bass Guitar</h3>
+        <p class="description">The foundation of music with deep, resonant low notes.</p>
+        <p class="price">Buy Now - ₹4450</p>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+ 
+      <div class="product-card" data-brand="Taylor" data-price="3200">
+        <div class="product-image-wrapper"><img src="luthierclassicalguitar.jpg" alt="Luthier Classical Guitar" class="product-image-actual"></div>
+        <h3>Luthier Classical Guitar</h3>
+        <p class="description">Handcrafted with premium woods for the professional classical player.</p>
+        <p class="price">Buy Now - ₹3200</p>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+ 
+    </div>
+  </main>
+</div>
+ 
+<footer class="footer">
+  <p>© 2025 Musical Instruments World. All Rights Reserved.</p>
+</footer>
+ 
+<div class="toast" id="toast">
+  <span class="toast-icon">✅</span>
+  <span id="toast-msg">Item added to cart!</span>
+</div>
+ 
+<script>
+  function applyFilters() {
+    const priceVal = document.getElementById('guitar-price').value;
+    const searchVal = document.getElementById('guitar-search').value.toLowerCase().trim();
+    const brandVal = document.getElementById('guitar-brand').value;
+    const sortVal = document.getElementById('guitar-sort').value;
+    const grid = document.getElementById('productsGrid');
+    const cards = Array.from(document.querySelectorAll('#productsGrid .product-card'));
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+      const price = parseFloat(card.getAttribute('data-price'));
+      const brand = card.getAttribute('data-brand');
+      const title = card.querySelector('h3').textContent.toLowerCase();
+      const description = card.querySelector('.description').textContent.toLowerCase();
+
+      let priceMatch = true;
+      if (priceVal === 'Under ₹1000') priceMatch = price < 1000;
+      else if (priceVal === '₹1000 - ₹2500') priceMatch = price >= 1000 && price <= 2500;
+      else if (priceVal === '₹2500+') priceMatch = price > 2500;
+
+      const brandMatch = (brandVal === 'All Brands') || (brand === brandVal);
+      const searchMatch = !searchVal || title.includes(searchVal) || description.includes(searchVal) || brand.toLowerCase().includes(searchVal);
+
+      const show = priceMatch && brandMatch && searchMatch;
+      card.style.display = show ? '' : 'none';
+      if (show) visibleCount++;
+    });
+
+    document.getElementById('noResultsMsg').style.display = visibleCount === 0 ? 'block' : 'none';
+    updateProductCount(visibleCount);
+
+    cards.sort((a, b) => {
+      const priceA = parseFloat(a.getAttribute('data-price'));
+      const priceB = parseFloat(b.getAttribute('data-price'));
+      const nameA = a.querySelector('h3').textContent.toLowerCase();
+      const nameB = b.querySelector('h3').textContent.toLowerCase();
+
+      if (sortVal === 'Price: Low to High') return priceA - priceB;
+      if (sortVal === 'Price: High to Low') return priceB - priceA;
+      if (sortVal === 'Name: A to Z') return nameA.localeCompare(nameB);
+      return 0;
+    });
+
+    cards.forEach(card => grid.appendChild(card));
+  }
+
+  function updateProductCount(count) {
+    const noun = count === 1 ? 'guitar' : 'guitars';
+    document.getElementById('productCount').textContent = 'Showing ' + count + ' ' + noun;
+  }
+
+  document.getElementById('applyFilters').addEventListener('click', applyFilters);
+  document.getElementById('guitar-search').addEventListener('input', applyFilters);
+  document.getElementById('guitar-price').addEventListener('change', applyFilters);
+  document.getElementById('guitar-brand').addEventListener('change', applyFilters);
+  document.getElementById('guitar-sort').addEventListener('change', applyFilters);
+  applyFilters();
+</script>
+
+<script>
+  function addToCart(product) {
+    const userId = localStorage.getItem('svara_user_id');
+    if (!userId) {
+      showToast('Please log in to add items to your cart', true);
+      return Promise.resolve(false);
+    }
+
+    const formData = new FormData();
+    formData.append('user_id', userId);
+    formData.append('product_name', product.name);
+    formData.append('product_price', product.price);
+    formData.append('product_image', product.image);
+
+    return fetch('cart_add.php', { method: 'POST', body: formData })
+      .then(res => res.json())
+      .then(data => {
+        if (!data.success) {
+          showToast(data.message || 'Could not add item to cart', true);
+        }
+        return data.success;
+      })
+      .catch(() => {
+        showToast('Network error - please try again', true);
+        return false;
+      });
+  }
+ 
+  function showToast(message, isError) {
+    const toast = document.getElementById('toast');
+    document.getElementById('toast-msg').textContent = message;
+    toast.style.background = isError ? '#96281B' : '';
+    toast.classList.add('show');
+    clearTimeout(window._toastTimer);
+    window._toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
+  }
+ 
+  document.querySelectorAll('#productsGrid .buy-button').forEach(button => {
+    button.addEventListener('click', function () {
+      const card = this.closest('.product-card');
+      const productName = card.querySelector('h3').textContent;
+      const productPrice = card.querySelector('.price').textContent;
+      const productImage = card.querySelector('img').getAttribute('src');
+      addToCart({ name: productName, price: productPrice, image: productImage })
+        .then(success => {
+          if (success) showToast('"' + productName + '" added to cart!');
+        });
+    });
+  });
+</script>
+ 
+<script>
+(function() {
+  var name = localStorage.getItem('svara_user_name') || '';
+  var btn = document.getElementById('profileBtn');
+  var nameEl = document.getElementById('profileName');
+  if (name) {
+    btn.textContent = name.charAt(0).toUpperCase();
+    nameEl.textContent = name;
+  }
+})();
+function toggleProfile() {
+  document.getElementById('profileDropdown').classList.toggle('open');
+}
+function logOut() {
+  localStorage.removeItem('svara_user_name');
+  localStorage.removeItem('svara_user_id');
+  window.location.href = 'landing.html';
+}
+document.addEventListener('click', function(e) {
+  var btn = document.getElementById('profileBtn');
+  var dd = document.getElementById('profileDropdown');
+  if (btn && dd && !btn.contains(e.target) && !dd.contains(e.target)) {
+    dd.classList.remove('open');
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<head>
+<title>SVARA - Discover the Sound of Music</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background: #F7F5F2;
+}
+
+/* ── HEADER ── */
+.header {
+  background: #121212;
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+.logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; letter-spacing: 2px; }
+.logo span { color: #96281B; }
+.nav { display: flex; gap: 1.5rem; align-items: center; }
+.nav a { color: rgba(255,255,255,0.85); text-decoration: none; font-weight: 500; font-size: 0.9rem; transition: color 0.2s; }
+.nav a:hover { color: white; background: rgba(255,255,255,0.14); border-radius: 999px; }
+.nav-auth { display: flex; gap: 0.75rem; margin-left: 1rem; }
+.btn-login {
+  background: transparent; color: white;
+  border: 2px solid rgba(255,255,255,0.6);
+  padding: 0.4rem 1.1rem; border-radius: 5px;
+  font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+}
+.btn-login:hover { border-color: white; background: rgba(255,255,255,0.1); }
+.btn-signup {
+  background: #96281B; color: white;
+  border: 2px solid #96281B;
+  padding: 0.4rem 1.1rem; border-radius: 5px;
+  font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: background 0.2s;
+}
+.btn-signup:hover { background: #B03020; border-color: #B03020; }
+.mobile-menu {
+  display: none; background: none; border: 2px solid white;
+  color: white; padding: 0.4rem 0.8rem; border-radius: 5px; cursor: pointer;
+}
+
+/* ── HERO ── */
+.hero {
+  background: linear-gradient(135deg, rgba(18,18,18,0.88) 0%, rgba(18,18,18,0.65) 100%),
+    url('landing.webp') center/cover no-repeat;
+  color: white; text-align: center; padding: 6rem 1rem 5rem;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 60% 50%, rgba(231,76,60,0.15) 0%, transparent 65%);
+}
+.hero-content { position: relative; z-index: 1; }
+.hero-badge {
+  display: inline-block; background: rgba(231,76,60,0.9); color: white;
+  font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  padding: 0.3rem 1rem; border-radius: 20px; margin-bottom: 1.5rem;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 900;
+  line-height: 1.15; margin-bottom: 1.2rem;
+}
+.hero p { font-size: 1.15rem; color: rgba(255,255,255,0.85); max-width: 520px; margin: 0 auto 2.5rem; }
+.hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.hero-btn-primary {
+  background: #96281B; color: white; padding: 0.85rem 2.2rem;
+  border: none; border-radius: 30px; font-size: 1rem; font-weight: 700;
+  cursor: pointer; transition: background 0.2s, transform 0.2s;
+}
+.hero-btn-primary:hover { background: #B03020; transform: translateY(-2px); }
+.hero-btn-secondary {
+  background: transparent; color: white; padding: 0.85rem 2.2rem;
+  border: 2px solid rgba(255,255,255,0.7); border-radius: 30px;
+  font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+}
+.hero-btn-secondary:hover { border-color: white; background: rgba(255,255,255,0.1); }
+
+/* ── STATS BAR ── */
+.stats-bar {
+  background: #121212; color: white;
+  display: flex; justify-content: center; gap: 3rem; padding: 1.2rem 2rem; flex-wrap: wrap;
+}
+.stat { text-align: center; }
+.stat-number { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: #96281B; }
+.stat-label { font-size: 0.78rem; color: rgba(255,255,255,0.65); text-transform: uppercase; letter-spacing: 1px; }
+
+/* ── SECTIONS ── */
+.section { max-width: 1200px; margin: 3rem auto; padding: 0 1.5rem; }
+.section-header { text-align: center; margin-bottom: 2.5rem; }
+.section-header h2 { font-family: 'Playfair Display', serif; font-size: 2rem; color: #121212; margin-bottom: 0.5rem; }
+.section-header p { color: #555; font-size: 1rem; }
+
+/* ── CATEGORY CARDS ── */
+.category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+.category-card {
+  background: white; border-radius: 14px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  overflow: hidden; transition: transform 0.25s, box-shadow 0.25s; cursor: pointer;
+}
+.category-card:hover { transform: translateY(-5px); box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+.category-thumb {
+  width: 100%; height: 220px; object-fit: contain;
+  display: block; background: #f8f8f8; padding: 1rem;
+}
+.category-body { padding: 1.4rem; }
+.category-body h3 { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: #121212; margin-bottom: 0.4rem; }
+.category-body p { color: #555; font-size: 0.9rem; margin-bottom: 1rem; }
+.category-count { font-size: 0.78rem; color: #96281B; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 0.5rem; }
+.btn-explore {
+  display: block; background: #1A1A1A; color: white; text-align: center;
+  padding: 0.6rem 1rem; border-radius: 6px; font-weight: 700; font-size: 0.9rem;
+  border: none; cursor: pointer; width: 100%; transition: background 0.2s;
+}
+.btn-explore:hover { background: #3A3A3A; }
+
+/* ── PRODUCT PREVIEW GRID ── */
+.products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem; }
+.product-card {
+  background: white; border-radius: 12px;
+  border: 2px solid #C8C0B5;
+  box-shadow: 0 6px 22px rgba(0,0,0,0.16), 0 2px 6px rgba(0,0,0,0.09);
+  text-align: center; padding: 1.4rem; display: flex; flex-direction: column;
+  align-items: center; position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  height: 420px;
+}
+.product-card:hover {
+  transform: translateY(-7px);
+  border-color: #96281B;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.18), 0 3px 8px rgba(0,0,0,0.10);
+}
+.product-category-tag {
+  position: absolute; top: 0.8rem; left: 0.8rem; background: #121212; color: white;
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  padding: 0.2rem 0.6rem; border-radius: 4px;
+}
+.product-image-actual {
+  width: 100%; height: 200px; object-fit: contain;
+  margin-bottom: 0.8rem; border-radius: 6px; background: #f8f8f8;
+}
+.product-card h3 { font-size: 0.98rem; margin-bottom: 0.3rem; color: #121212; font-weight: 700; }
+.price { font-size: 1.1rem; color: #96281B; font-weight: 700; margin-bottom: 0.4rem; }
+.description { flex-grow: 1; color: #555; font-size: 0.85rem; margin-bottom: 0.8rem; }
+
+/* ── LOCK OVERLAY ── */
+.lock-overlay {
+  position: absolute; inset: 0; background: rgba(18,18,18,0.72); border-radius: 12px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 0.6rem; opacity: 0; transition: opacity 0.25s; z-index: 5; backdrop-filter: blur(2px);
+}
+.product-card:hover .lock-overlay { opacity: 1; }
+.product-card.blurred .lock-overlay { opacity: 1; background: rgba(18,18,18,0.78); }
+.lock-icon { font-size: 2rem; }
+.lock-text { color: white; font-size: 0.85rem; font-weight: 600; text-align: center; line-height: 1.3; padding: 0 0.5rem; }
+.lock-btns { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
+.lock-btn { padding: 0.4rem 0.9rem; border-radius: 20px; font-size: 0.78rem; font-weight: 700; cursor: pointer; border: none; transition: background 0.2s; }
+.lock-btn-login { background: #96281B; color: white; }
+.lock-btn-login:hover { background: #B03020; }
+.lock-btn-signup { background: white; color: #121212; }
+.lock-btn-signup:hover { background: #f0f0f0; }
+.product-card.blurred .product-image-actual,
+.product-card.blurred h3,
+.product-card.blurred .price,
+.product-card.blurred .description { filter: blur(4px); user-select: none; }
+
+/* ── VIEW MORE BANNER ── */
+.view-more-banner {
+  text-align: center; background: white; border-radius: 14px;
+  padding: 2.5rem 1.5rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-top: 2rem;
+}
+.view-more-banner .lock-big { font-size: 2.8rem; margin-bottom: 0.8rem; display: block; }
+.view-more-banner h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #121212; margin-bottom: 0.5rem; }
+.view-more-banner p { color: #555; font-size: 0.95rem; max-width: 450px; margin: 0 auto 1.5rem; }
+.view-more-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.btn-red { background: #96281B; color: white; border: none; border-radius: 25px; padding: 0.7rem 1.8rem; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+.btn-red:hover { background: #B03020; }
+.btn-outline-dark { background: transparent; color: #121212; border: 2px solid #121212; border-radius: 25px; padding: 0.7rem 1.8rem; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+.btn-outline-dark:hover { background: #121212; color: white; }
+
+/* ── WHY SVARA ── */
+.why-section { background: #121212; color: white; padding: 3.5rem 1.5rem; text-align: center; margin-top: 3rem; }
+.why-section h2 { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 0.5rem; }
+.why-section p.sub { color: rgba(255,255,255,0.65); margin-bottom: 2.5rem; }
+.why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 900px; margin: 0 auto; }
+.why-card { background: rgba(255,255,255,0.07); border-radius: 12px; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.1); }
+.why-icon { font-size: 2rem; margin-bottom: 0.7rem; display: block; }
+.why-card h4 { font-weight: 700; margin-bottom: 0.4rem; font-size: 1rem; }
+.why-card p { font-size: 0.85rem; color: rgba(255,255,255,0.65); }
+
+/* ── FOOTER ── */
+.footer { background: #121212; color: white; text-align: center; padding: 2rem 1rem; font-size: 0.9rem; border-top: 1px solid rgba(255,255,255,0.08); }
+.footer a { color: rgba(255,255,255,0.7); text-decoration: none; margin: 0 0.4rem; }
+.footer a:hover { color: white; }
+
+/* ── AUTH MODAL ── */
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 9999; justify-content: center; align-items: center; }
+.modal-overlay.active { display: flex; }
+.modal-box {
+  background: white; border-radius: 14px; padding: 2.5rem 2rem;
+  max-width: 400px; width: 90%; text-align: center;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.25); animation: popIn 0.22s ease; position: relative;
+}
+@keyframes popIn { from { transform: scale(0.88); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.modal-close { position: absolute; top: 0.8rem; right: 1rem; background: none; border: none; font-size: 1.4rem; color: #999; cursor: pointer; line-height: 1; }
+.modal-close:hover { color: #333; }
+.modal-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #121212; margin-bottom: 0.4rem; }
+.modal-sub { color: #555; font-size: 0.9rem; margin-bottom: 1.5rem; }
+.modal-tabs { display: flex; border-bottom: 2px solid #eee; margin-bottom: 1.5rem; }
+.modal-tab { flex: 1; background: none; border: none; padding: 0.6rem; font-size: 0.95rem; font-weight: 700; color: #aaa; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.2s; }
+.modal-tab.active { color: #121212; border-bottom-color: #96281B; }
+.modal-form { display: none; }
+.modal-form.active { display: block; }
+.form-group { margin-bottom: 1rem; text-align: left; }
+.form-group label { display: block; margin-bottom: 0.4rem; font-weight: 600; font-size: 0.88rem; color: #121212; }
+.form-group input { width: 100%; padding: 0.7rem 0.9rem; border: 1px solid #ddd; border-radius: 6px; font-size: 0.95rem; transition: border-color 0.2s; }
+.form-group input:focus { outline: none; border-color: #121212; }
+.modal-submit { background: #96281B; color: white; border: none; border-radius: 6px; padding: 0.8rem 1rem; width: 100%; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 0.5rem; transition: background 0.2s; }
+.modal-submit:hover { background: #B03020; }
+.modal-note { font-size: 0.82rem; color: #555; margin-top: 1rem; }
+.modal-note a { color: #96281B; text-decoration: none; font-weight: 600; }
+
+/* ── TOAST ── */
+.toast {
+  position: fixed; bottom: 2rem; right: 2rem; background: #1A1A1A; color: white;
+  padding: 1rem 1.5rem; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  display: flex; align-items: center; gap: 0.8rem; font-weight: bold; font-size: 1rem;
+  opacity: 0; transform: translateY(20px); transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 9999; pointer-events: none;
+}
+.toast.show { opacity: 1; transform: translateY(0); }
+.toast-icon { font-size: 1.4rem; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .products-grid { grid-template-columns: repeat(2, 1fr); }
+  .category-grid { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+}
+@media (max-width: 768px) {
+  .nav { display: none; }
+  .mobile-menu { display: block; }
+  .category-grid { grid-template-columns: 1fr; }
+  .products-grid { grid-template-columns: 1fr; }
+  .why-grid { grid-template-columns: 1fr; }
+  .stats-bar { gap: 1.5rem; }
+  .hero { padding: 4rem 1rem 3.5rem; }
+  .lock-overlay { opacity: 1; background: rgba(18,18,18,0.6); }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="logo">SVAR<span>A</span></div>
+  <nav class="nav">
+    <div class="nav-auth">
+      <button class="btn-login" onclick="openModal('login')">Login</button>
+      <button class="btn-signup" onclick="openModal('signup')">Sign Up</button>
+    </div>
+  </nav>
+  <button class="mobile-menu">☰ Menu</button>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <span class="hero-badge">🎵 India's Music Store</span>
+    <h1>Discover the<br>Sound of Music</h1>
+    <p>Listen, learn and buy premium musical instruments. Guitars, Pianos, Drums, Violins — all in one place.</p>
+    <div class="hero-btns">
+      <button class="hero-btn-primary" onclick="openModal('signup')">Get Started Free</button>
+      <button class="hero-btn-secondary" onclick="document.getElementById('browse').scrollIntoView({behavior:'smooth'})">Browse Instruments</button>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat"><div class="stat-number">50+</div><div class="stat-label">Instruments</div></div>
+  <div class="stat"><div class="stat-number">4</div><div class="stat-label">Categories</div></div>
+  <div class="stat"><div class="stat-number">₹599</div><div class="stat-label">Starts From</div></div>
+  <div class="stat"><div class="stat-number">100%</div><div class="stat-label">Quality Assured</div></div>
+</div>
+
+<!-- CATEGORIES -->
+<section class="section" id="browse">
+  <div class="section-header">
+    <h2>Shop by Category</h2>
+    <p>Login or Sign Up to access the full catalogue and start shopping</p>
+  </div>
+  <div class="category-grid">
+    <div class="category-card" onclick="openModal('login')">
+      <img src="guitar.jpg" alt="Guitars" class="category-thumb" onerror="this.style.height='220px';this.style.background='linear-gradient(135deg,#d4a96a,#8b5e2a)';this.removeAttribute('src')">
+      <div class="category-body">
+        <div class="category-count">14 Products</div>
+        <h3>🎸 Guitars</h3>
+        <p>Acoustic, electric, classical, bass — every style and skill level covered.</p>
+        <button class="btn-explore" onclick="openModal('login')">Login to Explore →</button>
+      </div>
+    </div>
+    <div class="category-card" onclick="openModal('login')">
+      <img src="piano.jpg" alt="Pianos" class="category-thumb" onerror="this.style.height='220px';this.style.background='linear-gradient(135deg,#121212,#4a6fa5)';this.removeAttribute('src')">
+      <div class="category-body">
+        <div class="category-count">14 Products</div>
+        <h3>🎹 Pianos</h3>
+        <p>Digital, acoustic, portable keyboards — from starters to concert grands.</p>
+        <button class="btn-explore" onclick="openModal('login')">Login to Explore →</button>
+      </div>
+    </div>
+    <div class="category-card" onclick="openModal('login')">
+      <img src="drum.jpg" alt="Drums" class="category-thumb" onerror="this.style.height='220px';this.style.background='linear-gradient(135deg,#96281B,#8e1a10)';this.removeAttribute('src')">
+      <div class="category-body">
+        <div class="category-count">14 Products</div>
+        <h3>🥁 Drums</h3>
+        <p>Acoustic kits, electronic pads, bongos, cajons and full professional setups.</p>
+        <button class="btn-explore" onclick="openModal('login')">Login to Explore →</button>
+      </div>
+    </div>
+    <div class="category-card" onclick="openModal('login')">
+      <img src="violin.jpg" alt="Violins" class="category-thumb" onerror="this.style.height='220px';this.style.background='linear-gradient(135deg,#6b3e26,#3a1f12)';this.removeAttribute('src')">
+      <div class="category-body">
+        <div class="category-count">14 Products</div>
+        <h3>🎻 Violins</h3>
+        <p>Student to professional violins, bows, and cases for every skill level.</p>
+        <button class="btn-explore" onclick="openModal('login')">Login to Explore →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PREVIEW -->
+<section class="section">
+  <div class="section-header">
+    <h2>Featured Instruments</h2>
+    <p>A sneak peek — login to see all 40+ instruments, buy, and add to wishlist</p>
+  </div>
+  <div class="products-grid">
+
+    <div class="product-card">
+      <span class="product-category-tag">Guitar</span>
+      <img src="classicacousticguitar.jpg" alt="Classic Acoustic Guitar" class="product-image-actual">
+      <h3>Classic Acoustic Guitar</h3>
+      <p class="price">₹2,299</p>
+      <p class="description">Perfect for beginners and professionals alike.</p>
+      <div class="lock-overlay">
+        <span class="lock-icon">🔒</span>
+        <div class="lock-text">Login to buy or add to wishlist</div>
+        <div class="lock-btns">
+          <button class="lock-btn lock-btn-login" onclick="openModal('login')">Login</button>
+          <button class="lock-btn lock-btn-signup" onclick="openModal('signup')">Sign Up</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <span class="product-category-tag">Piano</span>
+      <img src="prodigitalstagepiano.jpg" alt="Pro Digital Stage Piano" class="product-image-actual">
+      <h3>Pro Digital Stage Piano</h3>
+      <p class="price">₹1,299</p>
+      <p class="description">Full weighted keys, superb tone quality.</p>
+      <div class="lock-overlay">
+        <span class="lock-icon">🔒</span>
+        <div class="lock-text">Login to buy or add to wishlist</div>
+        <div class="lock-btns">
+          <button class="lock-btn lock-btn-login" onclick="openModal('login')">Login</button>
+          <button class="lock-btn lock-btn-signup" onclick="openModal('signup')">Sign Up</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <span class="product-category-tag">Drums</span>
+      <img src="standard5-piecekit.jpg" alt="Standard 5-Piece Kit" class="product-image-actual">
+      <h3>Standard 5-Piece Kit</h3>
+      <p class="price">₹699</p>
+      <p class="description">Ideal for practice and small gigs.</p>
+      <div class="lock-overlay">
+        <span class="lock-icon">🔒</span>
+        <div class="lock-text">Login to buy or add to wishlist</div>
+        <div class="lock-btns">
+          <button class="lock-btn lock-btn-login" onclick="openModal('login')">Login</button>
+          <button class="lock-btn lock-btn-signup" onclick="openModal('signup')">Sign Up</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <span class="product-category-tag">Violin</span>
+      <img src="violin.jpg" alt="Student Full-Size Violin" class="product-image-actual">
+      <h3>Student Full-Size Violin</h3>
+      <p class="price">₹1,499</p>
+      <p class="description">Great starter violin with warm, balanced tone.</p>
+      <div class="lock-overlay">
+        <span class="lock-icon">🔒</span>
+        <div class="lock-text">Login to buy or add to wishlist</div>
+        <div class="lock-btns">
+          <button class="lock-btn lock-btn-login" onclick="openModal('login')">Login</button>
+          <button class="lock-btn lock-btn-signup" onclick="openModal('signup')">Sign Up</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card blurred">
+      <span class="product-category-tag">Guitar</span>
+      <img src="fenderstratocastersunburst.jpg" alt="Fender Stratocaster" class="product-image-actual">
+      <h3>Fender Stratocaster</h3>
+      <p class="price">₹1,250</p>
+      <p class="description">Iconic electric guitar for rock and blues.</p>
+      <div class="lock-overlay">
+        <span class="lock-icon">🔒</span>
+        <div class="lock-text">Login to view more items &amp; unlock full catalogue</div>
+        <div class="lock-btns">
+          <button class="lock-btn lock-btn-login" onclick="openModal('login')">Login</button>
+          <button class="lock-btn lock-btn-signup" onclick="openModal('signup')">Sign Up</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card blurred">
+      <span class="product-category-tag">Piano</span>
+      <img src="classicuprightpiano.jpg" alt="Classic Upright Piano" class="product-image-actual">
+      <h3>Classic Upright Piano</h3>
+      <p class="price">₹4,999</p>
+      <p class="description">Elegant design, rich acoustic sound.</p>
+      <div class="lock-overlay">
+        <span class="lock-icon">🔒</span>
+        <div class="lock-text">Login to view more items &amp; unlock full catalogue</div>
+        <div class="lock-btns">
+          <button class="lock-btn lock-btn-login" onclick="openModal('login')">Login</button>
+          <button class="lock-btn lock-btn-signup" onclick="openModal('signup')">Sign Up</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card blurred">
+      <span class="product-category-tag">Drums</span>
+      <img src="cajondrum.jpg" alt="Cajon Drum" class="product-image-actual">
+      <h3>Cajon Drum</h3>
+      <p class="price">₹1,775</p>
+      <p class="description">Versatile percussion for acoustic settings.</p>
+      <div class="lock-overlay">
+        <span class="lock-icon">🔒</span>
+        <div class="lock-text">Login to view more items &amp; unlock full catalogue</div>
+        <div class="lock-btns">
+          <button class="lock-btn lock-btn-login" onclick="openModal('login')">Login</button>
+          <button class="lock-btn lock-btn-signup" onclick="openModal('signup')">Sign Up</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card blurred">
+      <span class="product-category-tag">Violin</span>
+      <img src="violin.jpg" alt="Professional Concert Violin" class="product-image-actual">
+      <h3>Professional Concert Violin</h3>
+      <p class="price">₹8,500</p>
+      <p class="description">Premium tonewoods for soloists and orchestras.</p>
+      <div class="lock-overlay">
+        <span class="lock-icon">🔒</span>
+        <div class="lock-text">Login to view more items &amp; unlock full catalogue</div>
+        <div class="lock-btns">
+          <button class="lock-btn lock-btn-login" onclick="openModal('login')">Login</button>
+          <button class="lock-btn lock-btn-signup" onclick="openModal('signup')">Sign Up</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="view-more-banner">
+    <span class="lock-big">🎵</span>
+    <h3>40+ Instruments Waiting for You</h3>
+    <p>Create a free account to browse the full catalogue, add to wishlist, and purchase instantly.</p>
+    <div class="view-more-btns">
+      <button class="btn-red" onclick="openModal('signup')">Sign Up — It's Free</button>
+      <button class="btn-outline-dark" onclick="openModal('login')">Already have an account? Login</button>
+    </div>
+  </div>
+</section>
+
+<!-- WHY SVARA -->
+<section class="why-section">
+  <h2>Why Choose SVARA?</h2>
+  <p class="sub">Everything you need to start or grow your musical journey</p>
+  <div class="why-grid">
+    <div class="why-card">
+      <span class="why-icon">🎼</span>
+      <h4>Premium Selection</h4>
+      <p>Curated instruments from trusted brands — Fender, Gibson, Yamaha, Roland and more.</p>
+    </div>
+    <div class="why-card">
+      <span class="why-icon">📚</span>
+      <h4>Tutorials Included</h4>
+      <p>Learn alongside your instrument with our tutorial section for all skill levels.</p>
+    </div>
+    <div class="why-card">
+      <span class="why-icon">🚚</span>
+      <h4>Fast Delivery</h4>
+      <p>Careful packaging and quick shipping so your instrument arrives in perfect condition.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p style="margin-bottom:0.5rem;">
+    <a href="contact.html">Contact</a>
+    <a href="about us.html">About Us</a>
+    <a href="tutorials.html">Tutorials</a>
+  </p>
+  <p>© 2025 SVARA — Musical Instruments World. All Rights Reserved.</p>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span class="toast-icon">✅</span>
+  <span id="toast-msg">Welcome!</span>
+</div>
+
+<!-- AUTH MODAL -->
+<div class="modal-overlay" id="authModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-tabs">
+      <button class="modal-tab active" id="tabLogin" onclick="switchTab('login')">Login</button>
+      <button class="modal-tab" id="tabSignup" onclick="switchTab('signup')">Sign Up</button>
+    </div>
+
+    <!-- LOGIN -->
+    <div class="modal-form active" id="formLogin">
+      <div class="modal-title">Welcome Back 🎵</div>
+      <p class="modal-sub">Login to access the full catalogue</p>
+      <form id="loginForm">
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" name="email" required placeholder="name@example.com">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" name="password" required placeholder="••••••••">
+        </div>
+        <button type="submit" class="modal-submit">Log In</button>
+      </form>
+      <p class="modal-note">Don't have an account? <a href="#" onclick="switchTab('signup'); return false;">Sign up free</a></p>
+    </div>
+
+    <!-- SIGNUP -->
+    <div class="modal-form" id="formSignup">
+      <div class="modal-title">Join SVARA 🎸</div>
+      <p class="modal-sub">Create your free account today</p>
+      <form id="signupForm">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" name="name" required placeholder="Your Name">
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" name="email" required placeholder="name@example.com">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" name="password" required placeholder="Create a password" minlength="8">
+        </div>
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <input type="password" name="confirm-password" required placeholder="Repeat your password">
+        </div>
+        <button type="submit" class="modal-submit">Create Account</button>
+      </form>
+      <p class="modal-note">Already have an account? <a href="#" onclick="switchTab('login'); return false;">Log in</a></p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function openModal(tab) {
+    document.getElementById('authModal').classList.add('active');
+    switchTab(tab || 'login');
+  }
+  function closeModal() {
+    document.getElementById('authModal').classList.remove('active');
+  }
+  function switchTab(tab) {
+    document.getElementById('tabLogin').classList.toggle('active', tab === 'login');
+    document.getElementById('tabSignup').classList.toggle('active', tab === 'signup');
+    document.getElementById('formLogin').classList.toggle('active', tab === 'login');
+    document.getElementById('formSignup').classList.toggle('active', tab === 'signup');
+  }
+  document.getElementById('authModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    document.getElementById('toast-msg').textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  // ── LOGIN → saves name → redirect to home1.html ──
+  document.getElementById('loginForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    formData.append('login_submit', '1');
+    try {
+      const res  = await fetch('sql.php', { method: 'POST', body: formData });
+      const text = await res.text();
+      if (text.trim().toLowerCase().includes('login successful') || res.redirected) {
+        const parts = text.split('|');
+        if (parts[1]) localStorage.setItem('svara_user_name', parts[1].trim());
+        if (parts[2]) localStorage.setItem('svara_user_id', parts[2].trim());
+        closeModal();
+        showToast('Login successful! Taking you in...');
+        setTimeout(() => { window.location.href = 'home1.html'; }, 1200);
+      } else if (text.includes('Invalid email or password')) {
+        alert('Invalid email or password. Please try again.');
+      } else {
+        alert(text.replace(/<[^>]+>/g, '').trim() || 'Something went wrong, please try again.');
+      }
+    } catch(err) {
+      alert('Network error – please check your connection.');
+    }
+  });
+
+  // ── SIGNUP → redirect to home1.html ──
+  document.getElementById('signupForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    formData.append('register_submit', '1');
+    try {
+      const res  = await fetch('register_sql.php', { method: 'POST', body: formData });
+      const text = await res.text();
+      if (text.includes('Registration Successful') || text.includes('Successful')) {
+        closeModal();
+        showToast('Account created! Please login.');
+        setTimeout(() => openModal('login'), 1500);
+      } else if (text.includes('already registered')) {
+        alert('This email is already registered. Please login instead.');
+      } else if (text.includes('do not match')) {
+        alert('Passwords do not match!');
+      } else {
+        alert(text.replace(/<[^>]+>/g, '').trim() || 'Something went wrong.');
+      }
+    } catch(err) {
+      alert('Network error – please check your connection.');
+    }
+  });
+</script>
+</body>
+</html>

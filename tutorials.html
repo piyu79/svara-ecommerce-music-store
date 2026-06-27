@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<head>
+    <title> SVARA Instrument Tutorials Library</title>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'DM Sans', Arial, sans-serif;
+            background: #F7F5F2;
+            min-height: 100vh;
+        }
+
+        .header {
+            background-color: #121212;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+        .nav {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        .nav a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.2s, background 0.2s;
+            padding: 0.42rem 0.78rem;
+            border-radius: 999px;
+        }
+        .nav a:hover {
+            color: white;
+            background: rgba(255,255,255,0.14);
+        }
+        .mobile-menu {
+            display: none;
+            background: none;
+            border: 2px solid white;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .hero-header {
+            color: #121212;
+            padding: 2rem 1.5rem 1rem;
+            text-align: center;
+        }
+        .hero-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-bottom: 12px;
+            color: #121212;
+        }
+        .hero-header p {
+            font-size: 1rem;
+            letter-spacing: 0.6px;
+            margin: 0;
+            color: #5f6b76;
+        }
+
+        .video-list {
+            max-width: 1200px;
+            margin: 1rem auto 2rem;
+            padding: 0 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.8rem;
+        }
+        .video-card {
+            background: #FFFFFF;
+            box-shadow: 0 6px 22px rgba(18,18,18,0.13);
+            border-radius: 14px;
+            padding: 1.3em 2em 2em 2em;
+            width: 350px;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            border: 2px solid #C8C0B5;
+            cursor: pointer;
+        }
+        .video-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 12px 32px rgba(18,18,18,0.18);
+            border-color: #96281B;
+        }
+        .video-title {
+            font-size: 1.05rem;
+            color: #121212;
+            margin-bottom: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-align: center;
+        }
+        .video-iframe {
+            border-radius: 10px;
+            border: 1px solid #C8C0B5;
+            box-shadow: 0 4px 12px rgba(18,18,18,0.08);
+            width: 95%;
+            aspect-ratio: 16/9;
+            margin-bottom: 10px;
+            background: #f8f8f8;
+        }
+        .note {
+            position: absolute;
+            top: 18px;
+            right: 24px;
+            font-size: 1.46em;
+            opacity: 0.2;
+            animation: floatNote 5s infinite alternate;
+            color: #96281B;
+        }
+        .video-card:hover .note {
+            opacity: 0.4;
+        }
+        @keyframes floatNote {
+            from { transform: translateY(0px) scale(1); }
+            to { transform: translateY(-12px) scale(1.09); }
+        }
+
+        .footer {
+            background: #121212;
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav { display: none; }
+            .mobile-menu { display: block; }
+            .hero-header h1 { font-size: 1.8rem; }
+            .video-card { width: 90%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">SVAR<span style="color:#96281B;">A</span> </div>
+        <nav class="nav">
+            <p style="color:rgba(255,255,255,0.85); font-size:0.9rem;"> GO BACK TO HOME? <a href="landing.html" style="color:white; font-weight:700;">click here.</a> </p>
+        </nav>
+        <button class="mobile-menu">☰ Menu</button>
+    </header>
+
+    <div class="hero-header">
+        <h1>SVARA Instrument Tutorials Library</h1>
+        <p>Explore curated YouTube tutorials and master music, one instrument at a time.</p>
+    </div>
+
+    <div class="video-list">
+        <div class="video-card">
+            <span class="note">𝄞</span>
+            <div class="video-title">Guitar for Beginners</div>
+            <iframe class="video-iframe" src="https://www.youtube.com/embed/BBz-Jyr23M4" allowfullscreen></iframe>
+        </div>
+        <div class="video-card">
+            <span class="note">♬</span>
+            <div class="video-title">Piano Step by Step</div>
+            <iframe class="video-iframe" src="https://www.youtube.com/embed/vphWgqbF-AM" allowfullscreen></iframe>
+        </div>
+        <div class="video-card">
+            <span class="note">♩</span>
+            <div class="video-title">Violin Easy Lessons</div>
+            <iframe class="video-iframe" src="https://www.youtube.com/embed/videoseries?list=PL6urkeK7KgD6z9rImgxwiqBYZVwq31zlg" allowfullscreen></iframe>
+        </div>
+        <div class="video-card">
+            <span class="note">♫</span>
+            <div class="video-title">Drums for Starters</div>
+            <iframe class="video-iframe" src="https://www.youtube.com/embed/videoseries?list=PLFE4OWqVMvdt-_uhPLHn9JZwrhZEwJRo4" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Musical Instruments World. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<head>
+    <title>About Us - SVARA </title>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'DM Sans', Arial, sans-serif;
+            background: #F7F5F2;
+            color: #333;
+            line-height: 1.7;
+        }
+
+        .page-header {
+            max-width: 980px;
+            margin: 2rem auto 1.5rem;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            margin: 0;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: #121212;
+            font-weight: 900;
+        }
+
+        .page-header p {
+            max-width: 740px;
+            margin: 0.75rem auto 0;
+            color: #5f6b76;
+        }
+
+        .header {
+            background-color: #121212;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+        .nav {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        .nav a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.2s, background 0.2s;
+            padding: 0.42rem 0.78rem;
+            border-radius: 999px;
+        }
+        .nav a:hover,
+        .nav a.active {
+            color: white;
+            background: rgba(255,255,255,0.14);
+        }
+        .mobile-menu {
+            display: none;
+            background: none;
+            border: 2px solid white;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 980px;
+            margin: 0 auto 2rem;
+            padding: 0 20px;
+            background: transparent;
+        }
+
+        section {
+            padding: 28px 24px;
+            border: 2px solid #C8C0B5;
+            background: #FFFFFF;
+            border-radius: 16px;
+            box-shadow: 0 6px 22px rgba(0,0,0,0.13);
+            margin-bottom: 1.2rem;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        section:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 32px rgba(18,18,18,0.14);
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #121212;
+            margin-bottom: 18px;
+            border-bottom: 3px solid #eef2f5;
+            padding-bottom: 6px;
+            font-weight: 700;
+        }
+
+        p {
+            font-size: 1rem;
+            margin-bottom: 16px;
+            color: #5f6b76;
+            text-align: left;
+        }
+
+        .highlight {
+            color: #96281B;
+            font-weight: 600;
+            text-decoration: underline dotted rgba(231,76,60,0.5);
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .highlight:hover {
+            color: #B03020;
+        }
+
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.55);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            z-index: 9999;
+            animation: fadeIn 0.4s forwards;
+        }
+
+        .popup-content {
+            max-width: 700px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.18);
+            padding: 30px 28px;
+            color: #5f6b76;
+            position: relative;
+            overflow-y: auto;
+            max-height: 80vh;
+            font-size: 1em;
+            line-height: 1.5;
+            animation: fadeInScale 0.5s forwards;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 14px;
+            right: 20px;
+            background: #96281B;
+            color: white;
+            border: none;
+            font-size: 1.25em;
+            font-weight: 600;
+            padding: 5px 13px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+            transition: background-color 0.3s ease;
+            line-height: 1;
+        }
+
+        .popup-close:hover {
+            background-color: #B03020;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.85);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .footer {
+            background: #121212;
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                display: none; 
+                flex-direction: column;
+                width: 100%;
+                gap: 0.5rem;
+            }
+            .nav.active {
+                display: flex; 
+            }
+            .nav a {
+                padding: 0.5rem 0;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            .mobile-menu {
+                display: block;
+            }
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    
+/* ── PROFILE ── */
+.profile-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.profile-btn {
+  background: #96281B;
+  border: 2px solid rgba(255,255,255,0.7);
+  color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+.profile-btn:hover { background: #B03020; }
+.profile-name {
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.profile-dropdown {
+  display: none;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.18);
+  min-width: 170px;
+  z-index: 999;
+  overflow: hidden;
+}
+.profile-dropdown.open { display: block; }
+.profile-dropdown a {
+  display: block;
+  padding: 0.7rem 1.2rem;
+  color: #121212;
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 600;
+  transition: background 0.15s;
+  border-bottom: 1px solid #f0f0f0;
+}
+.profile-dropdown a:hover { background: #F7F5F2; }
+.profile-dropdown .logout-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.7rem 1.2rem;
+  color: #96281B;
+  background: none;
+  border: none;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.profile-dropdown .logout-btn:hover { background: #fff0ef; }
+
+</style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">SVAR<span style="color:#96281B;">A</span> </div>
+        <nav class="nav">
+            <a href="home1.html">Home</a>
+            <a href="guitars1.html">Guitars</a>
+            <a href="pianos1.html">Pianos</a>
+            <a href="drums1.html">Drums</a>
+            <a href="violins1.html">Violins</a>
+            <a href="tutorials1.html">Tutorials</a>
+            <a href="contact1.html">Contact</a>
+            <a href="about us1.html" class="active" aria-current="page">About Us</a>        </nav>
+        <button class="mobile-menu" onclick="document.querySelector('.nav').classList.toggle('active')">☰ Menu</button>
+      <div class="profile-wrapper">
+    <button class="profile-btn" id="profileBtn" onclick="toggleProfile()">&#128100;</button>
+    <span class="profile-name" id="profileName"></span>
+    <div class="profile-dropdown" id="profileDropdown">
+      <a href="update.html">&#9999;&#65039; Update Info</a>
+      <a href="de-register.html">&#10060; De-register</a>
+      <button class="logout-btn" onclick="logOut()">&#128682; Log Out</button>
+    </div>
+  </div>
+</header>
+    <div class="page-header">
+        <h1>About Us - Musical World Insights</h1>
+        <p>Learn what drives SVARA and why we care about making instruments, learning, and musical discovery feel approachable in one place.</p>
+    </div>
+
+    <main class="container">
+        <section>
+            <h2>Our Musical Universe</h2>
+            <p>
+                Music is a universal language that transcends borders and cultures. It has evolved over thousands of years, shaping
+                societies and touching the soul of humanity. At our core, we believe understanding the <span class="highlight" data-popup="history-music">history of music</span> enriches how we experience sound.
+            </p>
+        </section>
+
+        <section>
+            <h2>Exploring Instruments</h2>
+            <p>
+                Musical instruments are the tools that bring music to life. From the soothing sounds of the <span class="highlight" data-popup="history-piano">piano</span> to the rhythm of the <span class="highlight" data-popup="history-drums">drums</span>,
+                each instrument has a unique voice and story.
+            </p>
+            <p>
+                Over the centuries, innovations in design and technology have transformed how instruments are played and built, inspiring generations of musicians.
+            </p>
+        </section>
+
+        <section>
+            <h2>Music & Culture</h2>
+            <p>
+                Music mirrors cultural shifts and human emotions, often acting as a catalyst for social change. Diverse musical styles reflect the kaleidoscope of human identity worldwide.
+            </p>
+        </section>
+
+        <section>
+            <h2>Join Our Journey</h2>
+            <p>
+                We are passionate about sharing knowledge and inspiring everyone to discover their own musical path. Whether you are a beginner or a seasoned artist, our mission is to deepen your understanding of music's impact and beauty.
+            </p>
+            <p>Explore our collection of curated instruments and tutorials to start your musical adventure today!</p>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Musical Instruments World. All Rights Reserved.</p>
+    </footer>
+
+    <div id="history-music" class="popup-overlay">
+        <div class="popup-content">
+            <button class="popup-close" aria-label="Close popup">&times;</button>
+            <h3>The History of Music</h3>
+            <p>
+                Music dates back to prehistoric times, originating from natural sounds and rhythmic patterns. Ancient civilizations like Mesopotamia and Egypt developed early instruments such as flutes and drums.
+                Over millennia, musical expressions evolved, leading to classical compositions, folk traditions, and eventually modern genres like jazz, rock, and electronic music.
+            </p>
+            <p>
+                The recording and dissemination of music in the 20th century revolutionized how we connect with melodies worldwide.
+            </p>
+        </div>
+    </div>
+
+    <div id="history-piano" class="popup-overlay">
+        <div class="popup-content">
+            <button class="popup-close" aria-label="Close popup">&times;</button>
+            <h3>The History of the Piano</h3>
+            <p>
+                The piano originated in Italy in the early 18th century, invented by Bartolomeo Cristofori. It quickly became popular for its wide range and dynamic control.
+                Throughout history, composers like Mozart, Beethoven, and Chopin expanded piano music's possibilities, ushering in eras such as classical and romantic.
+            </p>
+            <p>
+                Today, the piano remains a central instrument in music education, performance, and production.
+            </p>
+        </div>
+    </div>
+
+    <div id="history-drums" class="popup-overlay">
+        <div class="popup-content">
+            <button class="popup-close" aria-label="Close popup">&times;</button>
+            <h3>The History of the Drums</h3>
+            <p>
+                Drums are among the oldest known musical instruments, with roots tracing back over 6,000 years. Originally used for communication and ceremonies,
+                drums developed into diverse styles worldwide – from African djembes to American drum kits.
+            </p>
+            <p>
+                Modern drumming influences countless music genres, driving rhythm and energy in performances across the globe.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.highlight').forEach(item => {
+            item.addEventListener('click', () => {
+                const popupId = item.getAttribute('data-popup');
+                const popup = document.getElementById(popupId);
+                if (popup) {
+                    popup.style.display = 'flex';
+                }
+            });
+        });
+
+        document.querySelectorAll('.popup-close').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.closest('.popup-overlay').style.display = 'none';
+            });
+        });
+
+        document.querySelectorAll('.popup-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.style.display = 'none';
+                }
+            });
+        });
+
+        const mobileMenuButton = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav');
+
+        if (mobileMenuButton && navLinks) {
+            mobileMenuButton.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+        }
+    </script>
+<script>
+(function() {
+  var name = localStorage.getItem('svara_user_name') || '';
+  var btn = document.getElementById('profileBtn');
+  var nameEl = document.getElementById('profileName');
+  if (name) {
+    btn.textContent = name.charAt(0).toUpperCase();
+    nameEl.textContent = name;
+  }
+})();
+function toggleProfile() {
+  document.getElementById('profileDropdown').classList.toggle('open');
+}
+function logOut() {
+  localStorage.removeItem('svara_user_name');
+  localStorage.removeItem('svara_user_id');
+  window.location.href = 'landing.html';
+}
+document.addEventListener('click', function(e) {
+  var btn = document.getElementById('profileBtn');
+  var dd = document.getElementById('profileDropdown');
+  if (btn && dd && !btn.contains(e.target) && !dd.contains(e.target)) {
+    dd.classList.remove('open');
+  }
+});
+</script>
+</body>
+</html>
