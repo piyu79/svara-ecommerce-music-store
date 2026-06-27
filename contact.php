@@ -3,30 +3,27 @@ session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $name    = $_POST['name'];
-    $email   = $_POST['email'];
-    $subject = $_POST['subject'];
-    $message = $_POST['message'];
+    $name    = trim($_POST['name']);
+    $email   = trim($_POST['email']);
+    $subject = trim($_POST['subject']);
+    $message = trim($_POST['message']);
 
-    // Database connection
-    $host       = "localhost";
-    $username   = "root";
+    $host        = "localhost";
+    $username    = "root";
     $db_password = "";
-    $dbname     = "priyaa1";
+    $dbname      = "priyaa1";
 
     $con = mysqli_connect($host, $username, $db_password, $dbname);
     if (!$con) {
         die("Connection failed: " . mysqli_connect_error());
     }
 
-    // Insert message into DB
-    $sql = "INSERT INTO contact_messages (name, email, subject, message, submitted_at)
-            VALUES ('$name', '$email', '$subject', '$message', NOW())";
-
-    $result = mysqli_query($con, $sql);
+    // Prepared statement — SQL injection safe
+    $stmt = mysqli_prepare($con, "INSERT INTO contact_messages (name, email, subject, message, submitted_at) VALUES (?, ?, ?, ?, NOW())");
+    mysqli_stmt_bind_param($stmt, "ssss", $name, $email, $subject, $message);
+    $result = mysqli_stmt_execute($stmt);
 
     if ($result) {
-        // Success - redirect back to contact page with success flag
         header("Location: contact1.html?status=success");
         exit();
     } else {
