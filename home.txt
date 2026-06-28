@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<head>
+<title>SVARA </title>
+<meta charset="UTF-8">
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+body {
+font-family: 'Arial', sans-serif;
+line-height: 1.6;
+color: #333;
+background: #f4f4f4;
+}
+
+.header {
+background: #1a1a1a;
+color: white;
+padding: 1rem;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 1rem;
+}
+
+.logo {
+font-size: 1.5rem;
+font-weight: bold;
+}
+
+.nav {
+display: none; 
+}
+
+.mobile-menu {
+display: block;
+background: none;
+border: 2px solid white;
+color: white;
+padding: 0.5rem 1rem;
+border-radius: 5px;
+}
+
+.hero {
+position: relative;
+overflow: hidden;
+color: white;
+text-align: center;
+padding: 4rem 1rem;
+}
+
+.hero::before {
+content: "";
+position: absolute;
+inset: 0;
+background: linear-gradient(rgba(18,18,18,0.68), rgba(18,18,18,0.68));
+z-index: 1;
+}
+
+.hero-video {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+object-fit: cover;
+z-index: 0;
+}
+
+.hero-content {
+position: relative;
+z-index: 2;
+}
+
+.hero h1 {
+font-size: 2rem;
+margin-bottom: 1rem;
+}
+
+.hero p {
+font-size: 1.1rem;
+margin-bottom: 2rem;
+}
+
+.cta-button {
+background: #e74c3c;
+color: white;
+padding: 0.8rem 2rem;
+border: none;
+border-radius: 25px;
+font-size: 1rem;
+cursor: pointer;
+}
+
+.products-section {
+padding: 2rem 1rem;
+max-width: 1200px;
+margin: 0 auto;
+}
+
+.section-title {
+text-align: center;
+margin-bottom: 2rem;
+font-size: 1.8rem;
+}
+
+.products-grid {
+display: grid;
+grid-template-columns: 1fr;
+gap: 2rem;
+}
+
+/* Cards are flex columns so content stacks and button pins to bottom */
+.product-card {
+background: white;
+border-radius: 10px;
+padding: 1.5rem;
+box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+text-align: center;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.product-image-actual {
+width: 100%;
+height: 200px;
+object-fit: contain;
+border-radius: 5px;
+display: block;
+margin: 0 auto 1rem auto;
+}
+
+/* Fixed height title so all cards align regardless of text length */
+.product-card h3 {
+font-size: 1.1rem;
+margin-bottom: 0.5rem;
+min-height: 2rem;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+/* Description grows to fill space, pushing button to bottom */
+.product-card p {
+flex-grow: 1;
+color: #555;
+font-size: 0.95rem;
+margin-bottom: 1rem;
+}
+
+.buy-button {
+background: #27ae60;
+color: white;
+padding: 0.5rem 1rem;
+border: none;
+border-radius: 5px;
+width: 100%;
+text-decoration: none;
+display: block;
+font-size: 0.95rem;
+cursor: pointer;
+}
+
+.footer {
+background: #1a1a1a;
+color: white;
+text-align: center;
+padding: 2rem 1rem;
+margin-top: 2rem;
+}
+
+.footer-links {
+display: grid;
+grid-template-columns: 1fr;
+gap: 1rem;
+margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+.header {
+flex-direction: row;
+justify-content: space-between;
+}
+
+.nav {
+display: flex;
+gap: 2rem;
+}
+
+.nav a {
+color: white;
+text-decoration: none;
+}
+
+.mobile-menu {
+display: none;
+}
+
+/* Use align-items: stretch so all cards in a row are same height */
+.products-grid {
+grid-template-columns: repeat(2, 1fr);
+align-items: stretch;
+}
+
+.recommendation-grid {
+grid-template-columns: repeat(2, 1fr);
+}
+
+.footer-links {
+grid-template-columns: repeat(3, 1fr);
+}
+}
+
+@media (min-width: 1024px) {
+.hero h1 {
+font-size: 3rem;
+}
+
+.products-grid {
+grid-template-columns: repeat(3, 1fr);
+}
+
+.recommendation-grid {
+grid-template-columns: repeat(3, 1fr);
+}
+
+.product-card:hover {
+transform: translateY(-5px);
+transition: transform 0.3s ease;
+}
+}
+
+@media (min-width: 1440px) {
+.products-grid {
+grid-template-columns: repeat(4, 1fr);
+}
+}
+
+/* ── PROFILE ── */
+.profile-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.profile-btn {
+  background: #e74c3c;
+  border: 2px solid rgba(255,255,255,0.7);
+  color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+.profile-btn:hover { background: #c0392b; }
+.profile-name {
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.profile-dropdown {
+  display: none;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.18);
+  min-width: 170px;
+  z-index: 999;
+  overflow: hidden;
+}
+.profile-dropdown.open { display: block; }
+.profile-dropdown a {
+  display: block;
+  padding: 0.7rem 1.2rem;
+  color: #1a1a1a;
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 600;
+  transition: background 0.15s;
+  border-bottom: 1px solid #f0f0f0;
+}
+.profile-dropdown a:hover { background: #f4f4f4; }
+.profile-dropdown .logout-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.7rem 1.2rem;
+  color: #e74c3c;
+  background: none;
+  border: none;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.profile-dropdown .logout-btn:hover { background: #fff0ef; }
+
+/* ── CART SECTION ── */
+.cart-section {
+padding: 2rem 1rem;
+max-width: 1200px;
+margin: 0 auto;
+}
+
+.cart-items {
+display: flex;
+flex-direction: column;
+gap: 1rem;
+margin-bottom: 1.5rem;
+}
+
+.cart-item {
+background: white;
+border-radius: 10px;
+box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+padding: 1rem;
+display: flex;
+align-items: center;
+gap: 1rem;
+}
+
+.cart-item img {
+width: 70px;
+height: 70px;
+object-fit: contain;
+border-radius: 5px;
+background-color: #f8f8f8;
+flex-shrink: 0;
+}
+
+.cart-item-info {
+flex-grow: 1;
+}
+
+.cart-item-info h4 {
+font-size: 1rem;
+margin-bottom: 0.3rem;
+}
+
+.cart-item-info .cart-item-price {
+color: #e74c3c;
+font-weight: bold;
+}
+
+.cart-item-info .cart-item-qty {
+color: #555;
+font-size: 0.9rem;
+margin-top: 0.2rem;
+}
+
+.cart-remove-btn {
+background: #e74c3c;
+color: white;
+border: none;
+border-radius: 5px;
+padding: 0.5rem 0.9rem;
+cursor: pointer;
+font-weight: bold;
+flex-shrink: 0;
+}
+
+.cart-remove-btn:hover {
+background: #c0392b;
+}
+
+.cart-empty {
+text-align: center;
+color: #777;
+padding: 2rem 1rem;
+background: white;
+border-radius: 10px;
+box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.cart-total {
+text-align: right;
+font-size: 1.2rem;
+font-weight: bold;
+color: #1a1a1a;
+padding: 1rem;
+}
+
+.cart-actions {
+display: flex;
+justify-content: flex-end;
+padding: 0 1rem 1rem;
+}
+
+.cart-actions.is-hidden {
+display: none;
+}
+
+.checkout-button {
+background: #e74c3c;
+color: white;
+text-decoration: none;
+padding: 0.85rem 1.4rem;
+border-radius: 999px;
+font-weight: bold;
+transition: background 0.2s ease, transform 0.2s ease;
+display: inline-block;
+}
+
+.checkout-button:hover {
+background: #c0392b;
+transform: translateY(-1px);
+}
+
+.recommendations-section {
+padding: 0 1rem 2rem;
+max-width: 1200px;
+margin: 0 auto;
+display: none;
+}
+
+.recommendations-section.is-visible {
+display: block;
+}
+
+.recommendations-intro {
+text-align: center;
+color: #666;
+margin: -1rem auto 1.5rem;
+max-width: 700px;
+}
+
+.recommendation-grid {
+display: grid;
+grid-template-columns: 1fr;
+gap: 1.5rem;
+}
+
+.recommendation-card {
+background: white;
+border-radius: 10px;
+box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+padding: 1.25rem;
+display: flex;
+flex-direction: column;
+text-align: center;
+}
+
+.recommendation-card img {
+width: 100%;
+height: 190px;
+object-fit: contain;
+margin-bottom: 1rem;
+border-radius: 6px;
+background-color: #f8f8f8;
+}
+
+.recommendation-card h3 {
+font-size: 1.05rem;
+margin-bottom: 0.5rem;
+min-height: 2.5rem;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.recommendation-price {
+color: #e74c3c;
+font-weight: bold;
+margin-bottom: 0.5rem;
+}
+
+.recommendation-reason {
+color: #666;
+font-size: 0.95rem;
+margin-bottom: 1rem;
+flex-grow: 1;
+}
+
+</style>
+</head>
+<body>
+
+<header class="header">
+<div class="logo">SVARA </div>
+<nav class="nav">
+<a href="home1.html">Home</a>
+<a href="guitars1.html">Guitars</a>
+<a href="pianos1.html">Pianos</a>
+<a href="drums1.html">Drums</a>
+<a href="violins1.html">Violins</a>
+<a href="tutorials1.html">Tutorials</a>
+<a href="contact1.html">Contact</a>
+<a href="about us1.html">About us</a>
+</nav>
+<button class="mobile-menu">☰ Menu</button>
+  <div class="profile-wrapper">
+    <button class="profile-btn" id="profileBtn" onclick="toggleProfile()">&#128100;</button>
+    <span class="profile-name" id="profileName"></span>
+    <div class="profile-dropdown" id="profileDropdown">
+      <a href="update.html">&#9999;&#65039; Update Info</a>
+      <a href="de-register.html">&#10060; De-register</a>
+      <button class="logout-btn" onclick="logOut()">&#128682; Log Out</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+<video class="hero-video" autoplay muted loop playsinline>
+<source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
+</video>
+<div class="hero-content">
+<h1>Discover the Sound of Music</h1>
+<p>Listen, Learn & Buy Musical Instruments</p>
+<button class="cta-button">Explore Instruments</button>
+</div>
+</section>
+
+<section class="products-section">
+<h2 class="section-title">Featured Instruments</h2>
+<div class="products-grid">
+
+<div class="product-card">
+<img src="guitar.jpg" alt="acoustic guitar" class="product-image-actual">
+<h3>Acoustic Guitar</h3>
+<p>Perfect for beginners and professionals</p>
+<a href="guitars1.html" class="buy-button">Explore more guitars</a>
+</div>
+
+<div class="product-card">
+<img src="piano.jpg" alt="Digital Piano" class="product-image-actual">
+<h3>Digital Piano</h3>
+<p>88 weighted keys with premium sound</p>
+<a href="pianos1.html" class="buy-button">Explore more pianos</a>
+</div>
+
+<div class="product-card">
+<img src="drum.jpg" alt="Acoustic Drum Set" class="product-image-actual">
+<h3>Drum Set</h3>
+<p>Complete acoustic drum kit</p>
+<a href="drums1.html" class="buy-button">Explore more drums</a>
+</div>
+
+<div class="product-card">
+<img src="violin.jpg" alt="Violin" class="product-image-actual">
+<h3>Violin</h3>
+<p>Rich, warm tone for every skill level</p>
+<a href="violins1.html" class="buy-button">Explore more violins</a>
+</div>
+
+</div>
+</section>
+
+<section class="cart-section">
+<h2 class="section-title">Your Cart</h2>
+<div class="cart-items" id="cartItems"></div>
+<div class="cart-total" id="cartTotal"></div>
+<div class="cart-actions is-hidden" id="cartActions">
+<a href="checkout.php" class="checkout-button" id="checkoutButton">Proceed to Checkout</a>
+</div>
+</section>
+
+<section class="recommendations-section" id="recommendationsSection">
+<h2 class="section-title">You may also like</h2>
+<p class="recommendations-intro" id="recommendationsIntro">Based on what is already in your cart.</p>
+<div class="recommendation-grid" id="recommendationGrid"></div>
+</section>
+
+<footer class="footer">
+<div class="footer-links">
+<div><a href="https://www.instagram.com/svara_5137?igsh=MXZybDFlZG8yMjBrYw%3D%3D&utm_source=qr" style="color:white;" target="_blank">Follow Us</a></div>
+</div>
+<p>2025 Musical Instruments World</p>
+</footer>
+
+<script>
+function parsePrice(priceText) {
+    var num = parseFloat(String(priceText).replace(/[^0-9.]/g, ''));
+    return isNaN(num) ? 0 : num;
+}
+
+var recommendationCatalog = {
+    violin: [
+        {
+            name: 'Carbon Fiber Violin Bow',
+            price: '₹999.00',
+            image: 'carbonfiberviolinbow.jpg',
+            description: 'A smart add-on for players who already have a violin in the cart.',
+            link: 'violins1.html'
+        },
+        {
+            name: 'Travel Violin Case',
+            price: '₹1450.00',
+            image: 'travelviolincase.jpg',
+            description: 'Pairs naturally with violin purchases for storage and travel.',
+            link: 'violins1.html'
+        },
+        {
+            name: 'Flamed Maple Violin',
+            price: '₹3650.00',
+            image: 'flamedmapleviolin.jpg',
+            description: 'Recommended from the same string collection for an upgraded tone.',
+            link: 'violins1.html'
+        }
+    ],
+    drums: [
+        {
+            name: 'Double Bass Drum Pedal',
+            price: '₹3999.00',
+            image: 'doublebassdrumpedal.jpg',
+            description: 'A strong match for full drum kit setups and performance players.',
+            link: 'drums1.html'
+        },
+        {
+            name: 'Maple Snare Drum (14")',
+            price: '₹2220.00',
+            image: 'maplesnaredrum.jpg',
+            description: 'Often paired with kits when building out a more complete setup.',
+            link: 'drums1.html'
+        },
+        {
+            name: 'Compact Electronic Pad',
+            price: '₹1350.00',
+            image: 'compactelectronicpad.jpg',
+            description: 'A useful accessory choice for practice, layering, and extra sounds.',
+            link: 'drums1.html'
+        }
+    ]
+};
+
+function getCartCategories(cart) {
+    var categories = [];
+
+    cart.forEach(function(item) {
+        var name = String(item.product_name || '').toLowerCase();
+
+        if (name.indexOf('violin') !== -1 || name.indexOf('bow') !== -1 || name.indexOf('string') !== -1) {
+            if (categories.indexOf('violin') === -1) {
+                categories.push('violin');
+            }
+        }
+
+        if (
+            name.indexOf('drum') !== -1 ||
+            name.indexOf('kit') !== -1 ||
+            name.indexOf('snare') !== -1 ||
+            name.indexOf('bongo') !== -1 ||
+            name.indexOf('cajon') !== -1 ||
+            name.indexOf('conga') !== -1 ||
+            name.indexOf('pedal') !== -1 ||
+            name.indexOf('percussion') !== -1
+        ) {
+            if (categories.indexOf('drums') === -1) {
+                categories.push('drums');
+            }
+        }
+    });
+
+    return categories;
+}
+
+function renderRecommendations(cart) {
+    var sectionEl = document.getElementById('recommendationsSection');
+    var introEl = document.getElementById('recommendationsIntro');
+    var gridEl = document.getElementById('recommendationGrid');
+
+    if (!sectionEl || !introEl || !gridEl) {
+        return;
+    }
+
+    var categories = getCartCategories(cart);
+    var cartNames = cart.map(function(item) {
+        return String(item.product_name || '').toLowerCase();
+    });
+    var recommendations = [];
+
+    categories.forEach(function(category) {
+        (recommendationCatalog[category] || []).forEach(function(product) {
+            var alreadyInCart = cartNames.indexOf(product.name.toLowerCase()) !== -1;
+            var alreadyListed = recommendations.some(function(existing) {
+                return existing.name === product.name;
+            });
+
+            if (!alreadyInCart && !alreadyListed) {
+                recommendations.push(product);
+            }
+        });
+    });
+
+    if (recommendations.length === 0) {
+        sectionEl.classList.remove('is-visible');
+        gridEl.innerHTML = '';
+        return;
+    }
+
+    if (categories.length === 1 && categories[0] === 'violin') {
+        introEl.textContent = 'Because your cart includes a violin, here are matching violin and string products.';
+    } else if (categories.length === 1 && categories[0] === 'drums') {
+        introEl.textContent = 'Because your cart includes a drum setup, here are matching drum accessories and add-ons.';
+    } else {
+        introEl.textContent = 'Based on the mix of items in your cart, here are related picks you may want next.';
+    }
+
+    gridEl.innerHTML = recommendations.slice(0, 3).map(function(product) {
+        return '' +
+            '<div class="recommendation-card">' +
+                '<img src="' + product.image + '" alt="' + product.name + '">' +
+                '<h3>' + product.name + '</h3>' +
+                '<div class="recommendation-price">' + product.price + '</div>' +
+                '<div class="recommendation-reason">' + product.description + '</div>' +
+                '<a href="' + product.link + '" class="buy-button">View product range</a>' +
+            '</div>';
+    }).join('');
+
+    sectionEl.classList.add('is-visible');
+}
+
+function renderCart() {
+    var itemsEl = document.getElementById('cartItems');
+    var totalEl = document.getElementById('cartTotal');
+    var cartActionsEl = document.getElementById('cartActions');
+    var checkoutButtonEl = document.getElementById('checkoutButton');
+    var userId = localStorage.getItem('svara_user_id');
+
+    if (!userId) {
+        itemsEl.innerHTML = '<div class="cart-empty">Log in to view your cart.</div>';
+        totalEl.textContent = '';
+        cartActionsEl.classList.add('is-hidden');
+        checkoutButtonEl.removeAttribute('href');
+        renderRecommendations([]);
+        return;
+    }
+
+    itemsEl.innerHTML = '<div class="cart-empty">Loading your cart...</div>';
+    totalEl.textContent = '';
+
+    fetch('cart_get.php?user_id=' + encodeURIComponent(userId))
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+            if (!data.success) {
+                itemsEl.innerHTML = '<div class="cart-empty">Could not load your cart. Please try again.</div>';
+                cartActionsEl.classList.add('is-hidden');
+                checkoutButtonEl.removeAttribute('href');
+                renderRecommendations([]);
+                return;
+            }
+
+            var cart = data.items;
+            itemsEl.innerHTML = '';
+
+            if (cart.length === 0) {
+                itemsEl.innerHTML = '<div class="cart-empty">Your cart is empty. Go add some instruments!</div>';
+                totalEl.textContent = '';
+                cartActionsEl.classList.add('is-hidden');
+                checkoutButtonEl.removeAttribute('href');
+                renderRecommendations([]);
+                return;
+            }
+
+            var total = 0;
+            cart.forEach(function(item) {
+                total += parsePrice(item.product_price) * parseInt(item.quantity, 10);
+
+                var row = document.createElement('div');
+                row.className = 'cart-item';
+                row.innerHTML =
+                    '<img src="' + item.product_image + '" alt="' + item.product_name + '">' +
+                    '<div class="cart-item-info">' +
+                        '<h4>' + item.product_name + '</h4>' +
+                        '<div class="cart-item-price">' + item.product_price + '</div>' +
+                        '<div class="cart-item-qty">Qty: ' + item.quantity + '</div>' +
+                    '</div>' +
+                    '<button class="cart-remove-btn" data-id="' + item.id + '">Remove</button>';
+                itemsEl.appendChild(row);
+            });
+
+            totalEl.textContent = 'Total: ₹' + total.toFixed(2);
+            checkoutButtonEl.href = 'checkout.php?user_id=' + encodeURIComponent(userId);
+            cartActionsEl.classList.remove('is-hidden');
+            renderRecommendations(cart);
+
+            document.querySelectorAll('.cart-remove-btn').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var cartId = this.getAttribute('data-id');
+                    var formData = new FormData();
+                    formData.append('cart_id', cartId);
+                    formData.append('user_id', userId);
+
+                    fetch('cart_remove.php', { method: 'POST', body: formData })
+                        .then(function(res) { return res.json(); })
+                        .then(function() { renderCart(); });
+                });
+            });
+        })
+        .catch(function() {
+            itemsEl.innerHTML = '<div class="cart-empty">Could not load your cart. Please try again.</div>';
+            cartActionsEl.classList.add('is-hidden');
+            checkoutButtonEl.removeAttribute('href');
+            renderRecommendations([]);
+        });
+}
+
+renderCart();
+</script>
+
+<script>
+(function() {
+  var name = localStorage.getItem('svara_user_name') || '';
+  var btn = document.getElementById('profileBtn');
+  var nameEl = document.getElementById('profileName');
+  if (name) {
+    btn.textContent = name.charAt(0).toUpperCase();
+    nameEl.textContent = name;
+  }
+})();
+function toggleProfile() {
+  document.getElementById('profileDropdown').classList.toggle('open');
+}
+function logOut() {
+  localStorage.removeItem('svara_user_name');
+  localStorage.removeItem('svara_user_id');
+  window.location.href = 'landing.html';
+}
+document.addEventListener('click', function(e) {
+  var btn = document.getElementById('profileBtn');
+  var dd = document.getElementById('profileDropdown');
+  if (btn && dd && !btn.contains(e.target) && !dd.contains(e.target)) {
+    dd.classList.remove('open');
+  }
+});
+</script>
+</body>
+</html>

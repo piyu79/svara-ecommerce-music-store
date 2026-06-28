@@ -1,0 +1,10 @@
+# NEVER commit these to GitHub
+.env
+
+# XAMPP / PHP
+*.log
+/vendor/
+
+# OS files
+.DS_Store
+Thumbs.db
