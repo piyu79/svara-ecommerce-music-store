@@ -152,7 +152,7 @@ Razorpay is integrated in **test mode**. Use these test credentials:
 
 ## 🙋‍♀️ Author
 
-**Piyu**
+**Priya**
 BSc IT — Somaiya University, Mumbai
 [GitHub](https://github.com/your-username) • [LinkedIn](https://linkedin.com/in/your-profile)
 
