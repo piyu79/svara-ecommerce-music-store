@@ -67,20 +67,22 @@ A full-featured e-commerce web application for musical instruments, built with P
 ## 📁 Project Structure
 
 ```
-svara/
-├── index.html               # Homepage
-├── guitars.html             # Product page — Guitars
-├── pianos.html              # Product page — Pianos
-├── drums.html               # Product page — Drums
-├── violins.html             # Product page — Violins
-├── cart.html                # Cart page
-├── checkout.php             # Checkout with Razorpay
-├── contact.html             # Contact page (logged in)
-├── contact_landing.php      # Contact page (pre-login)
+svara
+├── landing.html             #homepage before login
 ├── register.php             # User registration
 ├── login.php                # User login
+├── home1.html               # Homepage after login
+├── guitars1.html             # Product page — Guitars
+├── pianos1.html              # Product page — Pianos
+├── drums1.html               # Product page — Drums
+├── violins1.html             # Product page — Violins
+├── contact1.html             # Contact page (logged in)
+├── tutorials1.html          #Tutorial page with youtube links
+├── about us1.html           # About us page
 ├── update.php               # Profile update
+├── update.html
 ├── deregister.php           # Account deletion
+├── de-register.html
 ├── cart_add.php             # Cart — add item
 ├── cart_get.php             # Cart — fetch items
 ├── cart_remove.php          # Cart — remove item
