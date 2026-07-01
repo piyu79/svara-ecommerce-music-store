@@ -103,45 +103,6 @@ svara
 - PHP 8.x
 - A browser
 
-### Steps
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/your-username/svara.git
-   ```
-
-2. **Move to XAMPP's htdocs**
-   ```bash
-   # Windows
-   move svara C:\xampp\htdocs\svara
-
-   # Mac/Linux
-   mv svara /Applications/XAMPP/htdocs/svara
-   ```
-
-3. **Create the database**
-   - Open phpMyAdmin → Create a database named `svara`
-   - Import the provided SQL file (if included) or create tables manually
-
-4. **Set up environment variables**
-   - Create a `.env` file in the root directory:
-   ```
-   DB_HOST=localhost
-   DB_USER=root
-   DB_PASS=
-   DB_NAME=svara
-   RAZORPAY_KEY_ID=your_test_key
-   RAZORPAY_KEY_SECRET=your_test_secret
-   ```
-
-5. **Start XAMPP** — Apache + MySQL
-
-6. **Open in browser**
-   ```
-   http://localhost/svara/index.html
-   ```
-
----
 
 ## 🔐 Security
 
@@ -166,11 +127,8 @@ Razorpay is integrated in **test mode**. Use these test credentials:
 ## 🙋‍♀️ Author
 
 **Priya**
-BSc IT — Somaiya University, Mumbai
-[GitHub](https://github.com/your-username) • [LinkedIn](https://linkedin.com/in/your-profile)
+BSc IT — Somaiya Vidyavihar University,under SSBAS, Mumbai
+[GitHub](https://github.com/your-username) • [LinkedIn]([https://linkedin.com/in/your-profile](https://www.linkedin.com/in/priya-yadav-6b5a793ab?utm_source=share_via&utm_content=profile&utm_medium=member_android))
 
 ---
 
-## 📄 License
-
-This project is for educational purposes.
