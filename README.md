@@ -128,7 +128,7 @@ Razorpay is integrated in **test mode**. Use these test credentials:
 
 **Priya**
 BSc IT — Somaiya Vidyavihar University,under SSBAS, Mumbai
-[GitHub](https://github.com/your-username) • [LinkedIn]([https://linkedin.com/in/your-profile](https://www.linkedin.com/in/priya-yadav-6b5a793ab?utm_source=share_via&utm_content=profile&utm_medium=member_android))
+[GitHub](https://github.com/piyu79) • [LinkedIn](https://www.linkedin.com/in/priya-yadav-6b5a793ab?utm_source=share_via&utm_content=profile&utm_medium=member_android)
 
 ---
 
